@@ -18,8 +18,6 @@ public class ConferenceDay {
 
     public ArrayList<Person> participants = new ArrayList<>();
 
-    public HashMap<Integer, Integer> reservedPlaces = new HashMap<>();
-
     public ConferenceDay(Conference conference, int places, LocalDate date) {
         this.conference = conference;
         this.places = places;
@@ -54,19 +52,44 @@ public class ConferenceDay {
 
         int placesLeft = confDay.places - new Random().nextInt(10);
 
-        HashSet<Integer> addedPeople = new HashSet<>();
+        HashSet<Person> addedPeople;
+        Person randPerson;
+
+        for(Company company: conference.companiesParticipants.keySet()){
+            if(rand.nextInt(2) == 0){
+                addedPeople = new HashSet<>();
+
+                int participantsCount = conference.companiesParticipants.get(company).size();
+
+                int reservedPlaces = participantsCount > 10 ? 1 + rand.nextInt(10) : participantsCount;
+                company.reserveConferenceDay(con, confDay, reservedPlaces);
+
+                int placesToReserve = reservedPlaces - rand.nextInt(2);
+                while(placesLeft > 0 && placesToReserve > 0){
+                    randPerson = conference.companiesParticipants.get(company).get(rand.nextInt(participantsCount));
+                    if(!addedPeople.contains(randPerson)){
+                        addedPeople.add(randPerson);
+                        confDay.participants.add(randPerson);
+                        randPerson.reserveConferenceDay(con, confDay);
+
+                        placesLeft--;
+                        placesToReserve--;
+                    }
+                }
+            }
+        }
+
         int participantsCount = conference.participants.size();
         int i = 0;
 
-        Person chosenPerson;
+        addedPeople = new HashSet<>();
 
-        //TODO: Reserve days by companies
         while(placesLeft > 0 && i < 500){
-            chosenPerson = conference.participants.get(rand.nextInt(participantsCount));
-            if(!addedPeople.contains(chosenPerson.personID)){
-                addedPeople.add(chosenPerson.personID);
-                confDay.participants.add(chosenPerson);
-                chosenPerson.reserveConferenceDay(con, confDay);
+            randPerson = conference.participants.get(rand.nextInt(participantsCount));
+            if(!addedPeople.contains(randPerson)){
+                addedPeople.add(randPerson);
+                confDay.participants.add(randPerson);
+                randPerson.reserveConferenceDay(con, confDay);
                 placesLeft--;
             }
             i++;

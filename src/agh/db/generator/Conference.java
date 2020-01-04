@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Conference {
@@ -17,6 +18,7 @@ public class Conference {
 
     public int conferenceID;
 
+    public HashMap<Company, ArrayList<Person>> companiesParticipants = new HashMap<>();
     public ArrayList<Person> participants = new ArrayList<>();
 
     public Conference(String name, double studentDiscount){
@@ -88,11 +90,12 @@ public class Conference {
 
         for(Company company: companies){
             if(rand.nextInt(3) == 0){
+                conference.companiesParticipants.put(company, new ArrayList<>());
                 company.reserveConference(con, conference, startDate.minusDays(34 - rand.nextInt(20)));
                 for(Person emp : company.employees){
                     if(rand.nextInt(2) == 0){
                         emp.reserveConference(con, conference);
-                        conference.participants.add(emp);
+                        conference.companiesParticipants.get(company).add(emp);
                     }
                 }
             }

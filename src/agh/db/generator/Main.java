@@ -17,6 +17,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerResource_zh_CN;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -25,14 +26,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        for (int i = 0; i < 30; i++) {
-            System.out.println(Company.randCompany().insertSQL());
-            System.out.println();
-        }
-        */
-
-
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
@@ -50,7 +43,11 @@ public class Main {
             Connection con = DriverManager.getConnection(url);
             System.out.println("Connection established");
             System.out.println();
-            con.createStatement().execute("USE [Conference Organizations]");
+
+            System.out.print("Database name to insert generated data: ");
+            String databaseName = in.nextLine();
+            con.createStatement().execute("USE [" + databaseName + "]");
+            System.out.println("Database found");
 
             System.out.println("Adding companies...");
             ArrayList<Company> companies = new ArrayList<>();
@@ -74,7 +71,7 @@ public class Main {
             for(int i = 0; i < 36; i++){
                 int conferences = new Random().nextInt(4);
                 for(int j = 0; j < conferences; j++) {
-                    LocalDate randomDate = LocalDate.of(date.getYear(), date.getMonth(), 1 + new Random().nextInt(28));
+                    LocalDate randomDate = LocalDate.of(date.getYear(), date.getMonth(), 1 + new Random().nextInt(Month.from(date).maxLength()));
                     Conference.insertRandConference(con, randomDate, randomDate.plusDays(new Random().nextInt(3) + 1), companies, individuals);
                 }
                 date = date.plusMonths(1);

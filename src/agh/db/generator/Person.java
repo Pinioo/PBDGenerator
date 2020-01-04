@@ -141,4 +141,16 @@ public class Person {
             );
         }
     }
+
+    @Override
+    public int hashCode() {
+        return this.personID;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Person)
+            return this.personID == ((Person) obj).personID;
+        return false;
+    }
 }

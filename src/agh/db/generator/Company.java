@@ -115,4 +115,17 @@ public class Company {
 
         return company;
     }
+
+    @Override
+    public int hashCode() {
+        return this.companyID;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Company){
+            return this.companyID == ((Company) obj).companyID;
+        }
+        return false;
+    }
 }
