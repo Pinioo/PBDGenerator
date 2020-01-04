@@ -1,18 +1,12 @@
 package agh.db.generator;
 
-import com.github.javafaker.Address;
 import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
-import com.github.javafaker.PhoneNumber;
 
-import java.lang.invoke.StringConcatFactory;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Person {

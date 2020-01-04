@@ -1,28 +1,11 @@
-/*
-    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    String url = "jdbc:sqlserver://localhost;user=jakpin;password=123";
-    Connection con = null;
-    con = DriverManager.getConnection(url);
-    Statement st = con.createStatement();
-    st.execute(Conference.randConferenceSQL());
-    con.close();
-*/
-
 package agh.db.generator;
-
-import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
-import com.microsoft.sqlserver.jdbc.SQLServerResource_zh_CN;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     public static void main(String[] args) {
