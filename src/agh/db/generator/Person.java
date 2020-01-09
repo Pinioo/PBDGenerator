@@ -64,7 +64,6 @@ public class Person {
 
     public String insertSQL() {
         return
-                "USE [Conference organizations]\n" +
                         "INSERT INTO Participants (FirstName, LastName, Address, City, Country, Phone, Email)\n" +
                         "VALUES (" +
                         "'" + this.firstName + "', " +
@@ -109,7 +108,7 @@ public class Person {
 
         if(new Random().nextInt(30) != 0){
             con.createStatement().execute("INSERT INTO [Conference Payments] (ReservationID, Date)\n" +
-                    "VALUES (" + reservationID + ", '" + conf.startDate.minusDays(14 - new Random().nextInt(20)).toString() + "')"
+                    "VALUES (" + reservationID + ", '" + conf.startDate.minusDays(14 + new Random().nextInt(20)).toString() + "')"
             );
         }
     }
@@ -131,7 +130,7 @@ public class Person {
 
         if(new Random().nextInt(30) != 0){
             con.createStatement().execute("INSERT INTO [Workshop Payments] (ReservationID, Date)\n" +
-                    "VALUES (" + reservationID + ", '" + ws.conferenceDay.date.minusDays(14 - new Random().nextInt(20)).toString() + "')"
+                    "VALUES (" + reservationID + ", '" + ws.conferenceDay.date.minusDays(3 + new Random().nextInt(20)).toString() + "')"
             );
         }
     }

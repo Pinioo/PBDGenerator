@@ -60,9 +60,11 @@ public class Main {
                 date = date.plusMonths(1);
             }
             System.out.println("Finished");
+
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
 }

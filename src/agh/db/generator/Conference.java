@@ -58,13 +58,13 @@ public class Conference {
         Random rand = new Random();
         int levels = 2 + rand.nextInt(2);
 
-        LocalDate priceLevelDate = startDate.minusDays(14);
+        LocalDate priceLevelDate = startDate;
         int priceLevel = 300;
 
         for(int i = 0; i < levels; i++){
             priceLevelDate = priceLevelDate.minusDays(5 + rand.nextInt(4));
-            st.execute("USE [Conference Organizations]\n" +
-                    "INSERT INTO [Conferences Price Levels] (ConferenceID, PriceLevel, DateFrom)\n" +
+            st.execute(
+                    "INSERT INTO [Conferences Price Levels] (ConferenceID, PriceLevel, DateTo)\n" +
                     "VALUES (" + conferenceID + ", " + (priceLevel - 20 - rand.nextInt(50)) + ", '" + priceLevelDate.toString() + "')");
         }
     }
